@@ -23,8 +23,11 @@ A Laravel authentication API built with SOLID principles.
 - SQLite Testing
 
 ## API Endpoints
-POST /api/register
-POST /api/login
-GET /api/profile
-PUT /api/profile
-POST /api/change-password
+
+| Method | Endpoint |
+|------|------|
+| POST | /api/register |
+| POST | /api/login |
+| GET | /api/profile |
+| PUT | /api/profile |
+| POST | /api/change-password |
