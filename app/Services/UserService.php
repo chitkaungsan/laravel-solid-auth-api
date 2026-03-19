@@ -34,4 +34,16 @@ class UserService
 
         return $this->user->updatePassword($user['id'], $newPassword);
     }
+    public function assignRole(int $userId, string $role)
+    {
+        $user = $this->user->findById($userId);
+
+        if (!$user) {
+            throw new \Exception("User not found");
+        }
+
+        $user->assignRole($role);
+
+        return $user;
+    }
 }

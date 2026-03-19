@@ -38,4 +38,15 @@ class UserController extends Controller
             'message' => 'Password updated successfully'
         ]);
     }
+    public function assignRole(Request $request)
+    {
+        $this->userService->assignRole(
+            $request->user_id,
+            $request->role
+        );
+
+        return response()->json([
+            'message' => 'Role assigned'
+        ]);
+    }
 }
