@@ -8,7 +8,7 @@ uses(RefreshDatabase::class);
 
 test('guest cannot update profile', function () {
 
-    $response = $this->putJson('/api/profile', [
+    $response = $this->putJson('/api/v1/profile', [
         'name' => 'New Name',
         'email' => 'test@gmail.com'
     ]);

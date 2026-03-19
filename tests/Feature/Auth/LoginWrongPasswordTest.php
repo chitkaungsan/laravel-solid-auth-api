@@ -11,7 +11,7 @@ test('login fails with wrong password', function () {
         'password' => bcrypt('password')
     ]);
 
-    $response = $this->postJson('/api/login',[
+    $response = $this->postJson('/api/v1/login',[
         'email' => 'test@gmail.com',
         'password' => 'wrongpassword'
     ]);

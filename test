@@ -1,0 +1,49 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#6659
+    [34mall[39m: [
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#6154
+        [34mid[39m: [35m1[39m,
+        [34mname[39m: "[32mcreate_task[39m",
+        [34mguard_name[39m: "[32mweb[39m",
+        [34mcreated_at[39m: "[32m2026-03-17 14:38:35[39m",
+        [34mupdated_at[39m: "[32m2026-03-17 14:38:35[39m",
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#6289
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m1[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#6288
+        [34mid[39m: [35m2[39m,
+        [34mname[39m: "[32massign_task[39m",
+        [34mguard_name[39m: "[32mweb[39m",
+        [34mcreated_at[39m: "[32m2026-03-17 14:38:36[39m",
+        [34mupdated_at[39m: "[32m2026-03-17 14:38:36[39m",
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#6661
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m2[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#6138
+        [34mid[39m: [35m3[39m,
+        [34mname[39m: "[32mview_task[39m",
+        [34mguard_name[39m: "[32mweb[39m",
+        [34mcreated_at[39m: "[32m2026-03-17 14:38:36[39m",
+        [34mupdated_at[39m: "[32m2026-03-17 14:38:36[39m",
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#6660
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m3[39m,
+        },
+      },
+      [34;4mSpatie\Permission\Models\Permission[39;24m {#6141
+        [34mid[39m: [35m4[39m,
+        [34mname[39m: "[32mupdate_task[39m",
+        [34mguard_name[39m: "[32mweb[39m",
+        [34mcreated_at[39m: "[32m2026-03-17 14:38:36[39m",
+        [34mupdated_at[39m: "[32m2026-03-17 14:38:36[39m",
+        [34mpivot[39m: [34;4mIlluminate\Database\Eloquent\Relations\Pivot[39;24m {#6658
+          [34mrole_id[39m: [35m1[39m,
+          [34mpermission_id[39m: [35m4[39m,
+        },
+      },
+    ],
+  }
+

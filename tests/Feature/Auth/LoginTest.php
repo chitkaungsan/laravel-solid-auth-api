@@ -12,7 +12,7 @@ test('user can login and receive token', function () {
         'password' => bcrypt('password')
     ]);
 
-    $response = $this->postJson('/api/login',[
+    $response = $this->postJson('/api/v1/login',[
         'email' => 'test@gmail.com',
         'password' => 'password'
     ]);

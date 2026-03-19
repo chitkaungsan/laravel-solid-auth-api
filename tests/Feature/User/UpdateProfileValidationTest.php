@@ -12,7 +12,7 @@ test('update profile validation fails', function () {
 
     Sanctum::actingAs($user);
 
-    $response = $this->putJson('/api/profile', [
+    $response = $this->putJson('/api/v1/profile', [
         'name' => '',
         'email' => 'not-email'
     ]);

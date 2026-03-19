@@ -7,7 +7,7 @@ uses(RefreshDatabase::class);
 
 test('login validation fails when email missing', function () {
 
-    $response = $this->postJson('/api/login',[
+    $response = $this->postJson('/api/v1/login',[
         'password' => 'password'
     ]);
 
