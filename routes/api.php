@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\v1\CustomerController;
 use App\Http\Controllers\Api\v1\BookingController;
+use App\Http\Controllers\Api\v1\TourController;
 
 Route::prefix('v1')->group(function () {
 
@@ -22,38 +23,30 @@ Route::prefix('v1')->group(function () {
         Route::post('/assign-role', [UserController::class, 'assignRole']);
 
         //  Customer CRUD with permission per action
-        // Route::apiResource('customers', CustomerController::class)
-        //     ->middleware([
-        //         'index' => 'permission:view customers',
-        //         'show' => 'permission:view customers',
-        //         'store' => 'permission:create customers',
-        //         'update' => 'permission:update customers',
-        //         'destroy' => 'permission:delete customers',
-        //     ]);
+        Route::apiResource('customers', CustomerController::class)
+            ->middleware([
+                'index' => 'permission:view customers',
+                'show' => 'permission:view customers',
+                'store' => 'permission:create customers',
+                'update' => 'permission:update customers',
+                'destroy' => 'permission:delete customers',
+            ]);
 
-            Route::apiResource('bookings', BookingController::class)
-        ->middleware([
-            'index' => 'permission:view bookings',
-            'show' => 'permission:view bookings',
-            'store' => 'permission:create bookings',
-            'update' => 'permission:update bookings',
-            'destroy' => 'permission:delete bookings',
-        ]);
+        Route::apiResource('bookings', BookingController::class)
+            ->middleware([
+                'index' => 'permission:view bookings',
+                'show' => 'permission:view bookings',
+                'store' => 'permission:create bookings',
+                'update' => 'permission:update bookings',
+                'destroy' => 'permission:delete bookings',
+            ]);
     });
-
 });
 
-Route::get('/customers', [CustomerController::class, 'index'])
-    ->middleware('permission:view customers,web');
+Route::prefix('v1')->group(function () {
+    Route::post('/tours', [TourController::class, 'store']);
+});
 
-Route::get('/customers/{customer}', [CustomerController::class, 'show'])
-    ->middleware('permission:view customers,web');
-
-Route::post('/customers', [CustomerController::class, 'store'])
-    ->middleware('permission:create customers,web');
-
-Route::put('/customers/{customer}', [CustomerController::class, 'update'])
-    ->middleware('permission:update customers,web');
-
-Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])
-    ->middleware('permission:delete customers,web');
+Route::prefix('v1')->group(function () {
+    Route::get('/tours', [TourController::class, 'index']);
+});

@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use App\Models\User;
 use Laravel\Sanctum\Sanctum;
+use Spatie\Permission\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
@@ -17,43 +18,35 @@ class CustomerPermissionTest extends TestCase
     {
         parent::setUp();
 
-        app()[PermissionRegistrar::class]->forgetCachedPermissions();
+        // create permissions
+        Permission::create(['name' => 'view customers']);
+        Permission::create(['name' => 'create customers']);
+        Permission::create(['name' => 'update customers']);
+        Permission::create(['name' => 'delete customers']);
+
+        // create role
+        $role = Role::create(['name' => 'admin']);
+        $role->givePermissionTo(Permission::all());
     }
 
-    protected function authenticateWithPermission()
+    public function test_admin_can_create_customer()
     {
-        // create permission FIRST
-        $permission = Permission::create([
-            'name' => 'create customers',
-            'guard_name' => 'web'
-        ]);
-
-        // then user
         $user = User::factory()->create();
+        $user->assignRole('admin');
 
-        // assign permission
-        $user->givePermissionTo($permission);
-
-        Sanctum::actingAs($user, [], 'web');
-
-        return $user;
-    }
-
-    public function test_user_with_permission_can_create_customer()
-    {
-        $this->authenticateWithPermission();
+        Sanctum::actingAs($user);
 
         $response = $this->postJson('/api/v1/customers', [
-            'name' => 'John Doe',
-            'email' => 'john@example.com',
-            'phone' => '0812345678',
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+            'phone' => '09999999999',
             'note' => 'Test note'
         ]);
 
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('customers', [
-            'email' => 'john@example.com'
+            'name' => 'Test User'
         ]);
     }
 }
