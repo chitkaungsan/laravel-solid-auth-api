@@ -15,7 +15,7 @@ it('user can change password', function () {
 
     Sanctum::actingAs($user);
 
-    $response = $this->postJson('/api/v1/change-password', [
+    $response = $this->postJson('/api/v1/profile/change-password', [
         'current_password' => 'oldpassword',
         'password' => 'newpassword123',
         'password_confirmation' => 'newpassword123'

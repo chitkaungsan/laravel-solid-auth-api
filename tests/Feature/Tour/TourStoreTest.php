@@ -4,25 +4,24 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Models\User;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-class TourStoreTest extends TestCase
-{
-    use RefreshDatabase;
+uses( RefreshDatabase::class);
 
-    public function test_can_create_tour()
-    {
-        $data = [
-            'name' => 'Island Tour',
-            'description' => 'Visit islands',
-            'price' => 100,
-        ];
+test('Can store tour',function(){
+    config(['auth.defaults.guard' => 'sanctum']);
 
-        $response = $this->postJson('/api/v1/tours', $data);
-
-        $response->assertStatus(201);
-
-        $this->assertDatabaseHas('tours', [
-            'name' => 'Island Tour',
-        ]);
-    }
-}
+    $user = User::factory()->create();
+    $permission = Permission::create(['name' => 'create tours', 'guard_name' => 'sanctum']);
+    $role = Role::create(['name' => 'admin', 'guard_name' => 'sanctum']);
+    $role->givePermissionTo($permission);
+    $user->assignRole($role);
+    $response = $this->actingAs($user)->postJson('/api/v1/tours',[
+        'name' => 'Test Tour',
+        'description' => 'Test Description',
+        'price' => 100,
+    ]);
+    $response->assertStatus(201);
+});

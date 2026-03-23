@@ -12,7 +12,7 @@ test('user can update profile', function () {
 
     Sanctum::actingAs($user);
 
-    $response = $this->putJson('/api/v1/profile', [
+    $response = $this->putJson('/api/v1/profile/update-profile', [
         'name' => 'New Name',
         'email' => 'newemail@gmail.com'
     ]);

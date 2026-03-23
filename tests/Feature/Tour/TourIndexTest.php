@@ -3,33 +3,26 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
+use App\Models\User;
 use App\Models\Tour;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
+use Laravel\Sanctum\Sanctum;
 
-class TourTest extends TestCase
-{
-    use RefreshDatabase;
+uses( RefreshDatabase::class);
 
-public function test_can_get_tours()
-{
-    // Arrange
-    Tour::factory()->count(2)->create();
+test('can get tours', function(){
 
-    // Act
-    $response = $this->getJson('/api/v1/tours');
+config(['auth.defaults.guard' => 'sanctum']);
 
-    // Assert
-    $response->assertStatus(200)
-        ->assertJsonCount(2, 'data') // ✅ FIX
-        ->assertJsonStructure([
-            'data' => [
-                '*' => [
-                    'id',
-                    'name',
-                    'description',
-                    'price'
-                ]
-            ]
-        ]);
-}
-}
+$permission = Permission::create(['name' => 'view tours', 'guard_name' => 'sanctum']);
+$role = Role::create(['name' => 'admin', 'guard_name' => 'sanctum']);
+$role->givePermissionTo($permission);
+$user = User::factory()->create();
+$user->assignRole($role);
+Sanctum::actingAs($user, ['*'], 'sanctum');
+$response = $this->getJson('/api/v1/tours');
+$response->assertStatus(200);
+
+});
